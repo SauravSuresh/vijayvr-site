@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vijay VR — Cinematographer</title>
+<meta name="description" content="Vijay VR, cinematographer and director of photography based in Kochi, India. Commercials, fiction and documentary films.">
+<meta property="og:title" content="Vijay VR — Cinematographer">
+<meta property="og:image" content="stills/kalyan.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0a0a0a; --fg: #ece8e1; --dim: #8a867f; --line: #1f1f1f; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--fg); font: 300 15px/1.6 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .serif { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; }
+  .label { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
+
+  header { position: fixed; inset: 0 0 auto; z-index: 10; display: flex; justify-content: space-between; align-items: center;
+           padding: 22px clamp(16px, 4vw, 48px); mix-blend-mode: difference; }
+  .brand { font-size: 12px; letter-spacing: .28em; text-transform: uppercase; font-weight: 500; }
+  nav { display: flex; gap: clamp(16px, 3vw, 36px); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; }
+  nav a { opacity: .8; transition: opacity .2s; }
+  nav a:hover { opacity: 1; }
+
+  /* Hero: slow crossfade between stills */
+  .hero { position: relative; height: 100svh; overflow: hidden; }
+  .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0;
+              animation: fade 24s infinite; }
+  .hero img:nth-child(2) { animation-delay: 6s; }
+  .hero img:nth-child(3) { animation-delay: 12s; }
+  .hero img:nth-child(4) { animation-delay: 18s; }
+  @keyframes fade { 0% { opacity: 0; transform: scale(1.06); } 6%, 25% { opacity: 1; } 31%, 100% { opacity: 0; transform: scale(1); } }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,.85), rgba(10,10,10,.1) 45%, rgba(10,10,10,.35)); }
+  .hero-text { position: absolute; z-index: 1; left: clamp(16px, 4vw, 48px); right: clamp(16px, 4vw, 48px); bottom: clamp(32px, 7vh, 72px); }
+  .hero h1 { font-size: clamp(52px, 10vw, 150px); line-height: .92; letter-spacing: -.01em; }
+  .hero h1 em { color: var(--dim); }
+  .hero .label { margin-top: 22px; color: var(--fg); opacity: .75; }
+
+  section { padding: clamp(72px, 12vh, 140px) clamp(16px, 4vw, 48px); }
+  #narrative, #documentary { padding-top: 0; }
+  .section-head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 18px; margin-bottom: 40px; }
+  .section-head h2 { font-size: clamp(36px, 5vw, 64px); line-height: 1; }
+
+  /* Work grid */
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 56px) clamp(12px, 2vw, 24px); }
+  .film { cursor: pointer; display: block; text-align: left; background: none; border: 0; color: inherit; font: inherit; }
+  .film:first-child:nth-last-child(odd) { grid-column: 1 / -1; } /* odd count: lead film spans so no tile sits alone */
+  .film:disabled { cursor: default; }
+  .frame { aspect-ratio: 16 / 9; overflow: hidden; background: #141414; position: relative; }
+  .film:first-child:nth-last-child(odd) .frame { aspect-ratio: 2.39 / 1; }
+  .frame img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.86); transition: transform 1.2s cubic-bezier(.2,.7,.2,1), filter .6s; }
+  .film:hover img, .film:focus-visible img { transform: scale(1.035); filter: brightness(1); }
+  .frame .play { position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; transition: opacity .4s; }
+  .frame .play span { font-size: 11px; letter-spacing: .25em; text-transform: uppercase; border: 1px solid rgba(255,255,255,.6); border-radius: 99px; padding: 10px 20px; backdrop-filter: blur(6px); background: rgba(0,0,0,.2); }
+  .film:hover .play, .film:focus-visible .play { opacity: 1; }
+  .frame.blank { display: grid; place-items: center; }
+  .frame.blank b { font: 400 clamp(28px, 4vw, 48px) "Instrument Serif", serif; color: var(--dim); }
+  .meta { display: flex; gap: 14px; align-items: baseline; margin-top: 14px; }
+  .meta .n { font-size: 11px; color: var(--dim); font-variant-numeric: tabular-nums; }
+  .meta h3 { font: 400 22px/1.2 "Instrument Serif", serif; }
+  .meta .label { margin-left: auto; white-space: nowrap; }
+  .film:focus-visible { outline: 1px solid var(--fg); outline-offset: 6px; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .about img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .about p.lead { font: 400 clamp(26px, 3vw, 40px)/1.25 "Instrument Serif", serif; margin-bottom: 28px; }
+  .about p { color: #bdb8b0; max-width: 56ch; }
+  .about p + p { margin-top: 16px; }
+  .clients { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; color: var(--dim); }
+
+  /* Contact */
+  .contact { text-align: center; padding-bottom: 60px; }
+  .contact .label { margin-bottom: 26px; }
+  .contact a.mail { font: 400 clamp(36px, 7vw, 104px)/1 "Instrument Serif", serif; border-bottom: 1px solid var(--line); padding-bottom: 8px; transition: border-color .3s; overflow-wrap: anywhere; }
+  .contact a.mail:hover { border-color: var(--fg); }
+  .links { display: flex; justify-content: center; gap: 32px; margin-top: 44px; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; }
+  .links a { color: var(--dim); transition: color .2s; }
+  .links a:hover { color: var(--fg); }
+  footer { display: flex; justify-content: space-between; padding: 28px clamp(16px, 4vw, 48px); border-top: 1px solid var(--line); font-size: 12px; color: var(--dim); }
+
+  /* Player */
+  dialog { margin: auto; border: 0; background: transparent; width: min(1280px, 94vw); max-height: 94vh; overflow: visible; }
+  dialog::backdrop { background: rgba(5,5,5,.94); }
+  dialog .player { aspect-ratio: 16 / 9; background: #000; }
+  dialog iframe { width: 100%; height: 100%; border: 0; }
+  dialog .bar { display: flex; justify-content: space-between; align-items: baseline; margin-top: 16px; color: var(--fg); }
+  dialog .bar h3 { font: 400 26px "Instrument Serif", serif; }
+  dialog button.close { background: none; border: 0; color: var(--fg); font: 400 11px Inter, sans-serif; letter-spacing: .25em; text-transform: uppercase; cursor: pointer; opacity: .7; }
+  dialog button.close:hover { opacity: 1; }
+
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: minmax(0, 1fr); }
+    .film:first-child:nth-last-child(odd) .frame { aspect-ratio: 16 / 9; }
+    .about { grid-template-columns: 1fr; }
+    nav a:not(:last-child) { display: none; }
+    .meta .label { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero img { animation: none; }
+    .hero img:first-child { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="#">Vijay VR</a>
+  <nav><a href="#commercial">Commercial</a><a href="#narrative">Narrative</a><a href="#documentary">Documentary</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+</header>
+
+<div class="hero">
+  <img src="stills/kalyan.jpg" alt="">
+  <img src="stills/bridge.jpg" alt="">
+  <img src="stills/tail.jpg" alt="">
+  <img src="stills/citroen2.jpg" alt="">
+  <div class="hero-text">
+    <h1 class="serif">Vijay<br><em>VR</em></h1>
+    <p class="label">Cinematographer &nbsp;/&nbsp; Director of Photography &nbsp;·&nbsp; Kochi, India</p>
+  </div>
+</div>
+
+<section id="commercial">
+  <div class="section-head"><h2 class="serif">Commercial</h2><span class="label">TVC &amp; Digital</span></div>
+  <div class="grid" id="grid-commercial"></div>
+</section>
+
+<section id="narrative">
+  <div class="section-head"><h2 class="serif">Narrative</h2><span class="label">Fiction Films</span></div>
+  <div class="grid" id="grid-narrative"></div>
+</section>
+
+<section id="documentary">
+  <div class="section-head"><h2 class="serif">Documentary</h2><span class="label">Non-Fiction Films</span></div>
+  <div class="grid" id="grid-documentary"></div>
+</section>
+
+<section id="about">
+  <div class="about">
+    <img src="stills/spices.jpg" alt="Still from Bridge of Beautiful Friendship">
+    <div>
+      <p class="label" style="margin-bottom:22px">About</p>
+      <p class="lead">Telling stories through images.</p>
+      <p>I'm a cinematographer based in Kochi, India, and a Gold Medalist in PG Cinematography from L.V. Prasad Film Academy, Chennai. I have collaborated with leading production houses and agencies across India.</p>
+      <p>I strive to create compelling visuals that bring stories to life, across commercials, fiction and documentary films.</p>
+      <p class="label" style="margin-top:32px">Cameras</p>
+      <p style="margin-top:8px">ARRI Alexa LF, Mini LF &amp; 35 Xtreme · Sony Venice 1 &amp; 2 · RED Raptor. Mostly paired with Cooke or ARRI lenses.</p>
+      <div class="clients"><span>Citroën</span><span>Kalyan Silks</span><span>Axis Bank</span><span>Duroflex</span><span>Meralda Jewels</span><span>Favourite Homes</span><span>Arcon Homes</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <p class="label">Enquiries</p>
+  <a class="mail" href="mailto:vijay.nbr.2000@gmail.com">vijay.nbr.2000@gmail.com</a>
+  <div class="links">
+    <a href="https://instagram.com/vijayvr.dp" target="_blank" rel="noopener">Instagram · @vijayvr.dp</a>
+    <a href="https://www.linkedin.com/in/vijay-vr-nambiar-94783b205" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</section>
+
+<footer><span>© <span id="y"></span> Vijay VR</span><span>Kochi, India</span></footer>
+
+<dialog id="player">
+  <div class="player"><iframe allow="autoplay; fullscreen" allowfullscreen title="Film player"></iframe></div>
+  <div class="bar"><h3></h3><button class="close" autofocus>Close ✕</button></div>
+</dialog>
+
+<script>
+  // [section, title, client / type, Google Drive file id, still]
+  const films = [
+    ["commercial", "Meralda Jewels", "Meralda Jewels", "1f-wB06IqVThKqO8Z1HRQoU1s4zAXwrO4", "meralda"],
+    ["commercial", "Bridge of Beautiful Friendship", "Favourite Homes", "1KmreKIbaH1VNitHHin8uAFna7tTy2YPu", "bridge"],
+    ["commercial", "Arcon Homes", "Arcon Homes", "1VXROyFKnbx1htuD3HCwdwg-2YzYfI4Re", "arcon"],
+    ["commercial", "Motion Sofas", "Duroflex", "163TLeFnB5OGUD5grO5_QhkVa48E9LjvE", "duroflex"],
+    ["commercial", "Tail of Happiness", "Favourite Homes", "1ptG6N1gAWT5YnFzG3eavWEPlZ6uIUwg4", "tail"],
+    ["commercial", "Kalyan Silks", "Kalyan Silks", "1m3WpGBooECF4y91DpoSNAT_gIm9BCWX_", "kalyan2"],
+    ["commercial", "Citroën Aircross SUV", "Citroën", "1W1kNBhpu8Tr9u0b0df8Mdb3aVvh1DQHV", "citroen1"],
+    ["commercial", "Citroën C3 & Aircross", "Citroën", "1xNyK_ZsVxaC9AsSt0GU3J4kv_DD4vh_W", "citroen2"],
+    ["commercial", "All Rise — Film 1", "All Rise Pharmacy", "19vscP_jWtE664k0wLFRH6KH2_Z4jZQRh", "allrise1"],
+    ["commercial", "All Rise — Film 2", "All Rise Pharmacy", "167Mb-NS8yT0rJSmbGRonIJvzDOU-DZXj", "allrise2"],
+    ["narrative", "Legend Has It", "Short Film", "1A3NtTYoTJAl-Qw2fqmn2H9Aw3P8TnL8O", "legend"],
+    ["narrative", "U Nongiathong", "Fiction Film", "18WQhqpBU-njPEImR7lKqu01TnBqZoaXI", "nong"],
+    ["documentary", "The Story of Lab Chief", "Documentary", "1Ey_kfDoj1On_OTVtFi5q8F0Bd15Zbn10", "labchief"],
+  ];
+
+  const dlg = document.getElementById("player");
+  const frame = dlg.querySelector("iframe");
+
+  films.forEach(([section, title, kind, id, still]) => {
+    const grid = document.getElementById("grid-" + section);
+    const i = grid.children.length;
+    const b = document.createElement("button");
+    b.className = "film";
+    b.disabled = !id;
+    b.innerHTML = `
+      <div class="frame${still ? "" : " blank"}">
+        ${still ? `<img src="stills/${still}.jpg" alt="Still from ${title}" loading="lazy">` : `<b>${title}</b>`}
+        <div class="play"><span>${id ? "Play film" : "Coming soon"}</span></div>
+      </div>
+      <div class="meta"><span class="n">${String(i + 1).padStart(2, "0")}</span><h3>${title}</h3><span class="label">${kind}</span></div>`;
+    b.onclick = () => {
+      frame.src = `https://drive.google.com/file/d/${id}/preview`;
+      dlg.querySelector("h3").textContent = title;
+      dlg.showModal();
+    };
+    grid.append(b);
+  });
+
+  dlg.querySelector(".close").onclick = () => dlg.close();
+  dlg.onclick = e => { if (e.target === dlg) dlg.close(); };
+  dlg.onclose = () => { frame.src = ""; };
+  document.getElementById("y").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
