@@ -41,7 +41,8 @@
   .hero .label { margin-top: 22px; color: var(--fg); opacity: .75; }
 
   section { padding: clamp(72px, 12vh, 140px) clamp(16px, 4vw, 48px); }
-  #narrative, #documentary { padding-top: 0; }
+  #commercial, #narrative, #documentary { padding-top: 0; }
+  .reel { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; }
   .section-head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 18px; margin-bottom: 40px; }
   .section-head h2 { font-size: clamp(36px, 5vw, 64px); line-height: 1; }
 
@@ -110,7 +111,7 @@
 
 <header>
   <a class="brand" href="#">Vijay VR</a>
-  <nav><a href="#commercial">Commercial</a><a href="#narrative">Narrative</a><a href="#documentary">Documentary</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+  <nav><a href="#showreel">Showreel</a><a href="#commercial">Commercial</a><a href="#narrative">Narrative</a><a href="#documentary">Documentary</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
 </header>
 
 <div class="hero">
@@ -123,6 +124,11 @@
     <p class="label">Cinematographer &nbsp;/&nbsp; Director of Photography &nbsp;·&nbsp; Kochi, India</p>
   </div>
 </div>
+
+<section id="showreel">
+  <div class="section-head"><h2 class="serif">Showreel</h2><span class="label">2026 · 2:13</span></div>
+  <video class="reel" controls preload="metadata" playsinline poster="stills/reel.jpg" src="showreel-web.mp4"></video>
+</section>
 
 <section id="commercial">
   <div class="section-head"><h2 class="serif">Commercial</h2><span class="label">TVC &amp; Digital</span></div>
