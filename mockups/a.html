@@ -25,8 +25,10 @@
   nav a.btn { border: 1px solid #fff; padding: 8px 20px; }
 
   .hero { position: relative; height: min(78vh, 760px); }
-  .hero img { width: 100%; height: 100%; object-fit: cover; }
-  .hero::after { content: ""; position: absolute; inset: auto 0 0; height: 40%; background: linear-gradient(transparent, rgba(0,0,0,.6)); }
+  .hero video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero::after { content: ""; position: absolute; inset: auto 0 0; height: 40%; background: linear-gradient(transparent, rgba(0,0,0,.6)); pointer-events: none; }
+  .hero .sound { position: absolute; z-index: 2; right: var(--pad); top: 24px; font: 400 11px Lato, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #fff; border: 1px solid rgba(255,255,255,.7); padding: 10px 18px; background: rgba(0,0,0,.35); backdrop-filter: blur(6px); cursor: pointer; }
+  .hero .sound:hover { background: #000; }
 
   /* Quick access: three numbered tiles pulled up over the hero */
   .quick { position: relative; z-index: 1; margin: -120px var(--pad) 0; display: grid; grid-template-columns: repeat(3, 1fr); }
@@ -109,10 +111,13 @@
 
 <header>
   <a class="brand" href="#"><b>Vijay VR</b><span>Director of Photography</span></a>
-  <nav><a href="#showreel">Showreel</a><a href="#commercial">Commercial</a><a href="#narrative">Narrative</a><a href="#about">About</a><a class="btn" href="#contact">Contact</a></nav>
+  <nav><a href="#reel" onclick="document.getElementById('reel').showModal();return false">Showreel</a><a href="#commercial">Commercial</a><a href="#narrative">Narrative</a><a href="#about">About</a><a class="btn" href="#contact">Contact</a></nav>
 </header>
 
-<div class="hero"><img src="../stills/kalyan.jpg" alt=""></div>
+<div class="hero">
+  <video autoplay muted loop playsinline poster="../stills/reel.jpg" src="../showreel-web.mp4"></video>
+  <button class="sound" onclick="document.getElementById('reel').showModal()">▶ Watch showreel with sound</button>
+</div>
 
 <div class="quick">
   <a href="#commercial"><span class="small">01</span><h2>Commercial</h2><p>TVC and Digital</p></a>
@@ -127,7 +132,6 @@
 
 <div class="tagline"><h2>Cinematographer<br>Vijay VR</h2></div>
 
-<a class="band" id="showreel" href="#reel" onclick="document.getElementById('reel').showModal();return false"><img src="../stills/reel.jpg" alt=""><h2>Showreel</h2></a>
 
 <section id="commercial">
   <div class="sec-head"><h2>Commercial</h2><span class="small">TVC &amp; Digital</span></div>
