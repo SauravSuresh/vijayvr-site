@@ -112,7 +112,7 @@
 </header>
 
 <div class="hero">
-  <video autoplay muted loop playsinline poster="stills/reel.jpg" src="showreel-web.mp4"></video>
+  <video id="loop" autoplay muted playsinline poster="stills/reel.jpg" src="showreel-web.mp4#t=3"></video>
   <button class="sound" onclick="document.getElementById('reel').showModal()">▶ Watch showreel with sound</button>
 </div>
 
@@ -216,6 +216,10 @@ function renderFilms(tpl) {
 
   renderFilms(f => `<div class="frame"><img src="stills/${f.still}.jpg" alt="" loading="lazy"><div class="play"><i></i></div></div><div class="cap"><h3>${f.title}</h3><p>${f.kind}</p></div>`);
   document.getElementById("y").textContent = new Date().getFullYear();
+  // Hero loop skips the reel's title card (0–3s) and end card (129s+)
+  const loop = document.getElementById("loop");
+  loop.ontimeupdate = () => { if (loop.currentTime >= 128.5 || loop.currentTime < 2.9) loop.currentTime = 3; };
+  loop.onended = () => { loop.currentTime = 3; loop.play(); };
 </script>
 </body>
 </html>
